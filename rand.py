@@ -8,7 +8,7 @@ def getCode(phoneNum):
 
 def recoverCode(seed, phoneNum):
 	random.seed(seed + phoneNum)
-	print("Verification code: " + ''.join(random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in range(16)))
+	return ''.join(random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in range(16))
 
 # while(1):
 # 	seed = raw_input("Enter the desired seed: ")

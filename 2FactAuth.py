@@ -13,7 +13,6 @@ def TwoFactEncrypt():
 	out_file = open(out_fileName, 'wb')
 
 	password = raw_input("Enter the password to set: ")
-
 	password2 = raw_input("Re-enter the password to set: ")
 
 	if(password != password2):
@@ -32,23 +31,29 @@ def TwoFactEncrypt():
 
 	encrypt(in_file, mid_file, code)
 
-	mid_file = open("intermediate", 'wb')
+	mid_file = open("intermediate", 'r+')
 
+
+	d = mid_file.readlines()
 	mid_file.seek(0)
-	mid_file.write(seed)
+	mid_file.write(seed + "\n")
+	for i in d:
+		mid_file.write(i)
+	mid_file.truncate()
+	mid_file.close()
+
 
 	mid_file = open("intermediate", 'rb')
 
 	encrypt(mid_file, out_file, password)
 
+	os.remove("intermediate")
 
-
-	# os.remove("intermediate")
-
-	
-
-	# print('Hello ' + person)
 	print("Encryption successful.")
+
+	#Retrieved seed: sI83pu0mpPQaQnoG for phoneOut1.txt
+	#Retrieved seed: dgxxef2F4hb5AUop for phoneOut2.txt
+	#Retrieved seed: XiFDkbDQ2cWthjML for twoOut.txt
 
 def TwoFactDecrypt():
 	in_fileName = raw_input("Enter the name of the file to decrypt: ")
@@ -61,21 +66,34 @@ def TwoFactDecrypt():
 
 	password = raw_input("Enter the password: ")
 
-	phoneNum = raw_input("Enter the phone number: ")
+	phoneNum = raw_input("Enter the verified phone number: ")
 
 	print("Decrypting...")
 
-	decrypt(in_file, mid_file, phoneNum)
+	decrypt(in_file, mid_file, password)
 
-	mid_file = open("intermediate", 'rb')
+	mid_file = open("intermediate", 'r+')
 
 	mid_file.seek(0)
-	phoneNum = mid_file.read(10)
-	# mid_file.seek(10)
+	seed = mid_file.read(16)
+	mid_file.seek(0)
 
-	print("Read Phone Number = " + phoneNum)
+	print("Read seed = " + seed)
 
-	decrypt(mid_file, out_file, password)
+	# new_file = open("intermediate2", "w")
+
+	d = mid_file.readlines()
+	mid_file.seek(0)
+	for i in d:
+		if i != seed + "\n":
+				mid_file.write(i)
+
+	mid_file.truncate()
+
+	code = recoverCode(seed, phoneNum)
+
+	mid_file = open("intermediate", 'rb')
+	decrypt(mid_file, out_file, code)
 
 	print("Decryption complete.")
 
