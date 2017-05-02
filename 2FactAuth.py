@@ -7,7 +7,7 @@ def TwoFactEncrypt():
 	in_fileName = raw_input("Enter the name of the file to encrypt: ")
 	in_file = open(in_fileName, 'rb') 
 
-	mid_file = open("intermediate", 'wb')
+	# mid_file = open("intermediate", 'wb')
 
 	out_fileName = raw_input("Enter the name of the output file: ")
 	out_file = open(out_fileName, 'wb')
@@ -28,6 +28,8 @@ def TwoFactEncrypt():
 	code, seed = getCode(phoneNum)
 
 	print("Retrieved seed: " + seed)
+
+	mid_file = open("intermediate", 'wb')
 
 	encrypt(in_file, mid_file, code)
 
@@ -80,8 +82,6 @@ def TwoFactDecrypt():
 
 	print("Read seed = " + seed)
 
-	# new_file = open("intermediate2", "w")
-
 	d = mid_file.readlines()
 	mid_file.seek(0)
 	for i in d:
@@ -94,6 +94,8 @@ def TwoFactDecrypt():
 
 	mid_file = open("intermediate", 'rb')
 	decrypt(mid_file, out_file, code)
+
+	os.remove("intermediate")
 
 	print("Decryption complete.")
 
