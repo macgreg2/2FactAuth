@@ -46,9 +46,9 @@ def decrypt(in_file, out_file, password, key_length=32):
             finished = True
         out_file.write(chunk)
 
-password = "mypassword"
+password = "pancake"
 
 # with open("TestDoc.txt", 'rb') as in_file, open("testOut", 'wb') as out_file:
 #     encrypt(in_file, out_file, password)
-# with open("testOut", 'rb') as in_file, open("testOutFinal.txt", 'wb') as out_file:
+# with open("interDecrypt", 'rb') as in_file, open("twiceDecrypted.txt", 'wb') as out_file:
 #     decrypt(in_file, out_file, password)
