@@ -2,6 +2,7 @@ import sys
 import os
 from myCrypto import encrypt, decrypt
 from rand import getCode, recoverCode
+from sms import sendSms #(phoneNum, code)
 
 def TwoFactEncrypt():
 	in_fileName = raw_input("Enter the name of the file to encrypt: ")
@@ -90,10 +91,17 @@ def TwoFactDecrypt():
 
 	mid_file.truncate()
 
-	code = recoverCode(seed, phoneNum)
+	# code = recoverCode(seed, phoneNum)
+
+	print("Sending verification code via sms...")
+
+	sendSms(phoneNum, recoverCode(seed, phoneNum))
+	# code = "a"						#remove the actual code from memory
+
+	userCode = raw_input("Enter the verification code: ")
 
 	mid_file = open("intermediate", 'rb')
-	decrypt(mid_file, out_file, code)
+	decrypt(mid_file, out_file, userCode)
 
 	os.remove("intermediate")
 
