@@ -50,6 +50,7 @@ def TwoFactEncrypt():
 
 	encrypt(mid_file, out_file, password)
 
+	mid_file.close()
 	os.remove("intermediate")
 
 	print("Encryption successful.")
@@ -75,6 +76,8 @@ def TwoFactDecrypt():
 
 	decrypt(in_file, mid_file, password)
 
+	mid_file.close()
+
 	mid_file = open("intermediate", 'r+')
 
 	mid_file.seek(0)
@@ -83,6 +86,8 @@ def TwoFactDecrypt():
 
 	print("Read seed = " + seed)
 
+
+
 	d = mid_file.readlines()
 	mid_file.seek(0)
 	for i in d:
@@ -90,6 +95,8 @@ def TwoFactDecrypt():
 				mid_file.write(i)
 
 	mid_file.truncate()
+
+	# sys.exit()
 
 	# code = recoverCode(seed, phoneNum)
 
@@ -100,9 +107,12 @@ def TwoFactDecrypt():
 
 	userCode = raw_input("Enter the verification code: ")
 
+	mid_file.close()
+
 	mid_file = open("intermediate", 'rb')
 	decrypt(mid_file, out_file, userCode)
 
+	mid_file.close()
 	os.remove("intermediate")
 
 	print("Decryption complete.")
