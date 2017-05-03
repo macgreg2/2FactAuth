@@ -91,75 +91,75 @@ def decrypt(in_file, out_file, password, key_length=32):
 #         out_file.write(chunk)
 
 
-password = "pancake"
-phoneNum = "3036181122"
-code, seed = getCode(phoneNum)
-from shutil import copyfile
-# ENCRYPT----------------------------------------
+# password = "pancake"
+# phoneNum = "3036181122"
+# code, seed = getCode(phoneNum)
+# from shutil import copyfile
+# # ENCRYPT----------------------------------------
 
-with open("in.jpg", 'rb') as in_file, open("testOut", 'wb') as out_file:
-    encrypt(in_file, out_file, code)
-    copyfile("testOut", "testOutCopy")
-
-
-
-out_file = open("testOut", 'r+')
-
-
-out_file.seek(0,2)              #navigate to the end of the file
-out_file.write(seed)
-out_file.close()
-
-with open("testOut", 'rb') as in_file, open("testOut2", 'wb') as out_file:
-    encrypt(in_file, out_file, password)
-
-
-#DECRYPT-----------------------------------------
-
-
-with open("testOut2", 'rb') as in_file, open("testOut3", 'wb') as out_file:
-    decrypt(in_file, out_file, password)
-
-
-out_file = open("testOut3", 'r+')
-
-out_file.seek(0,2)
-size = out_file.tell()
-out_file.seek(size - 16)
-
-seed = out_file.read(16)
-
-out_file.truncate(size - 16)
+# with open("in.jpg", 'rb') as in_file, open("testOut", 'wb') as out_file:
+#     encrypt(in_file, out_file, code)
+#     copyfile("testOut", "testOutCopy")
 
 
 
-
-# with open("testOut3", 'rb') as out_file:
-#     for line in out_file:
-#         if not line.strip():
-#             break
-#     open("testOutNew", 'wb').writelines(out_file)
+# out_file = open("testOut", 'r+')
 
 
-# d = out_file.readlines()
-# out_file.seek(0)
-# for i in d:
-#     # print(out_file.tell())
-#     if i != seed + "\n":
-#         out_file.write(i)
+# out_file.seek(0,2)              #navigate to the end of the file
+# out_file.write(seed)
+# out_file.close()
 
-# location = out_file.tell()
+# with open("testOut", 'rb') as in_file, open("testOut2", 'wb') as out_file:
+#     encrypt(in_file, out_file, password)
 
-# print("Current pointer location: ")
-# print(location)
 
-# print("Size - location: ")
-# print(size-location)
+# #DECRYPT-----------------------------------------
 
-# out_file.truncate(size - (size-location))
 
-out_file.close()
-code = recoverCode(seed, phoneNum)
+# with open("testOut2", 'rb') as in_file, open("testOut3", 'wb') as out_file:
+#     decrypt(in_file, out_file, password)
 
-with open("testOut3", 'rb') as in_file, open("testOut.jpg", 'wb') as out_file:
-    decrypt(in_file, out_file, code)
+
+# out_file = open("testOut3", 'r+')
+
+# out_file.seek(0,2)
+# size = out_file.tell()
+# out_file.seek(size - 16)
+
+# seed = out_file.read(16)
+
+# out_file.truncate(size - 16)
+
+
+
+
+# # with open("testOut3", 'rb') as out_file:
+# #     for line in out_file:
+# #         if not line.strip():
+# #             break
+# #     open("testOutNew", 'wb').writelines(out_file)
+
+
+# # d = out_file.readlines()
+# # out_file.seek(0)
+# # for i in d:
+# #     # print(out_file.tell())
+# #     if i != seed + "\n":
+# #         out_file.write(i)
+
+# # location = out_file.tell()
+
+# # print("Current pointer location: ")
+# # print(location)
+
+# # print("Size - location: ")
+# # print(size-location)
+
+# # out_file.truncate(size - (size-location))
+
+# out_file.close()
+# code = recoverCode(seed, phoneNum)
+
+# with open("testOut3", 'rb') as in_file, open("testOut.jpg", 'wb') as out_file:
+#     decrypt(in_file, out_file, code)
