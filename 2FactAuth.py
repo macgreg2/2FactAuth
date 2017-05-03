@@ -28,8 +28,6 @@ def TwoFactEncrypt():
 
 	code, seed = getCode(phoneNum)
 
-	print("Retrieved seed: " + seed)
-
 	mid_file = open("intermediate", 'wb')
 
 	encrypt(in_file, mid_file, code)
@@ -37,12 +35,8 @@ def TwoFactEncrypt():
 	mid_file = open("intermediate", 'r+')
 
 
-	d = mid_file.readlines()
-	mid_file.seek(0)
-	mid_file.write(seed + "\n")
-	for i in d:
-		mid_file.write(i)
-	mid_file.truncate()
+	mid_file.seek(0,2)		#navigate to the end of the file
+	mid_file.write(seed)		#append seed to the end of the file
 	mid_file.close()
 
 
@@ -80,30 +74,18 @@ def TwoFactDecrypt():
 
 	mid_file = open("intermediate", 'r+')
 
-	mid_file.seek(0)
+	mid_file.seek(0,2)
+	size = mid_file.tell()
+	mid_file.seek(size - 16)
+
 	seed = mid_file.read(16)
-	mid_file.seek(0)
 
-	print("Read seed = " + seed)
+	mid_file.truncate(size - 16)
 
-
-
-	d = mid_file.readlines()
-	mid_file.seek(0)
-	for i in d:
-		if i != seed + "\n":
-				mid_file.write(i)
-
-	mid_file.truncate()
-
-	# sys.exit()
-
-	# code = recoverCode(seed, phoneNum)
 
 	print("Sending verification code via sms...")
 
 	sendSms(phoneNum, recoverCode(seed, phoneNum))
-	# code = "a"						#remove the actual code from memory
 
 	userCode = raw_input("Enter the verification code: ")
 

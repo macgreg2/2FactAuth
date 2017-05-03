@@ -4,11 +4,11 @@ import string
 def getCode(phoneNum):
 	seed = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(16))
 	random.seed(seed + phoneNum)
-	return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16)), seed
+	return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6)), seed
 
 def recoverCode(seed, phoneNum):
 	random.seed(seed + phoneNum)
-	return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16))
+	return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
 # while(1):
 # 	seed = raw_input("Enter the desired seed: ")
