@@ -3,6 +3,7 @@ import os
 from myCrypto import encrypt, decrypt
 from rand import getCode, recoverCode
 from sms import sendSms #(phoneNum, code)
+import OpenSSL
 
 def TwoFactEncrypt():
 	in_fileName = raw_input("Enter the name of the file to encrypt: ")
