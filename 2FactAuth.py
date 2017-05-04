@@ -55,6 +55,22 @@ def TwoFactEncrypt():
 	#Retrieved seed: XiFDkbDQ2cWthjML for twoOut.txt
 
 def TwoFactDecrypt():
+	passed2 = 0
+	print("Need to select twilio account for sending SMS, custom (free) account necessary for sending SMS to new phone number.")
+	while(passed2 == 0):
+		select = raw_input("Type 1 (Cecil's account) or 2 (custom account): ")
+		if(select != '1' and select != '2'):
+			print("Invalid input, please type '1' or '2'")
+		else:
+			passed2 = 1
+
+	if(select == '1'):
+		SID = "AC2ba203157ee8c7ad6231b397db9bc332"
+		AUTH = "6bc073fc5f2b19988f1bcca5551f1981"
+	else:
+		SID = raw_input("Enter Twilio account SID: ")
+		AUTH = raw_input("Enter Twilio account AUTH: ")
+
 	in_fileName = raw_input("Enter the name of the file to decrypt: ")
 	in_file = open(in_fileName, 'rb') 
 
@@ -86,7 +102,7 @@ def TwoFactDecrypt():
 
 	print("Sending verification code via sms...")
 
-	sendSms(phoneNum, recoverCode(seed, phoneNum))
+	sendSms(SID, AUTH, phoneNum, recoverCode(seed, phoneNum))
 
 	userCode = raw_input("Enter the verification code: ")
 
@@ -102,7 +118,10 @@ def TwoFactDecrypt():
 
 
 
-passed = 0
+passed  = 0
+
+
+
 
 while(passed == 0):
 	select = raw_input("Type E (encrypt) or D (decrypt) ")
@@ -111,6 +130,8 @@ while(passed == 0):
 		print("Invalid input, please type 'E' or 'D'")
 	else:
 		passed = 1
+
+
 
 if(select == "E" or select == "e"):
 	TwoFactEncrypt()

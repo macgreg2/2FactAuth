@@ -9,13 +9,13 @@ from twilio.rest import Client
 # SID = os.getenv('TWILIO_ACCOUNT_SID')
 # AUTH = os.getenv('TWILIO_AUTH_TOKEN')
 
-TWILIO_ACCOUNT_SID = "AC2ba203157ee8c7ad6231b397db9bc332"
-TWILIO_AUTH_TOKEN = "6bc073fc5f2b19988f1bcca5551f1981"
+# TWILIO_ACCOUNT_SID = "AC2ba203157ee8c7ad6231b397db9bc332"
+# TWILIO_AUTH_TOKEN = "6bc073fc5f2b19988f1bcca5551f1981"
 
 # print(TWILIO_ACCOUNT_SID)
 
-def sendSms(phoneNum, code):
-	client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+def sendSms(SID, AUTH, phoneNum, code):
+	client = Client(SID, AUTH)
 	 
 	client.messages.create(from_='17204589327',
 	                       to='1' + phoneNum,
