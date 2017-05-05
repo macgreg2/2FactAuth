@@ -57,7 +57,7 @@ def TwoFactEncrypt():
 
 def TwoFactDecrypt():
 	passed2 = 0
-	print("Need to select twilio account for sending SMS, custom (free) account necessary for sending SMS to new phone number.")
+	print("Need to select Twilio account for sending SMS, custom (free) account necessary for sending SMS to new phone number.")
 	while(passed2 == 0):
 		select = raw_input("Type 1 (Cecil's account) or 2 (custom account): ")
 		if(select != '1' and select != '2'):
