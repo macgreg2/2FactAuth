@@ -4,6 +4,7 @@ from myCrypto import encrypt, decrypt
 from rand import getCode, recoverCode
 from sms import sendSms #(phoneNum, code)
 import OpenSSL
+import getpass
 
 def TwoFactEncrypt():
 	in_fileName = raw_input("Enter the name of the file to encrypt: ")
@@ -14,8 +15,8 @@ def TwoFactEncrypt():
 	out_fileName = raw_input("Enter the name of the output file: ")
 	out_file = open(out_fileName, 'wb')
 
-	password = raw_input("Enter the password to set: ")
-	password2 = raw_input("Re-enter the password to set: ")
+	password = getpass.getpass("Enter the password to set: ")
+	password2 = getpass.getpass("Re-enter the password to set: ")
 
 	if(password != password2):
 		print("Passwords do not match, exiting.")
@@ -79,7 +80,7 @@ def TwoFactDecrypt():
 	out_fileName = raw_input("Enter the name of the output file: ")
 	out_file = open(out_fileName, 'wb')
 
-	password = raw_input("Enter the password: ")
+	password = getpass.getpass("Enter the password: ")
 
 	phoneNum = raw_input("Enter the verified phone number: ")
 
